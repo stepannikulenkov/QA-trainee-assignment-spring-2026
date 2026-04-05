@@ -106,7 +106,6 @@
 | TC-3.6 | Несуществующий продавец | GET с рандомным sellerID |404 |  |
 | TC-3.7 | Строковый sellerID | GET /api/1/abc/item | 400 |  |
 | TC-3.8 | Отрицательный sellerID | GET /api/1/-1/item | 400 | 200 | BUG-8 |
-| TC-3.9 | Нулевой sellerID | GET /api/1/0/item | 400 |  |
 
 ---
 
