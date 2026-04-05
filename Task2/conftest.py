@@ -1,5 +1,5 @@
+import random
 import pytest
-import requests
 from utils.api_client import ApiClient
 
 
@@ -9,11 +9,10 @@ def api_client():
 
 
 @pytest.fixture
-def new_item(api_client, request):
-    sellerID = getattr(request, "param", 145535)
+def new_item(api_client):
 
     payload = {
-        "sellerID": sellerID,
+        "sellerID": random.randint(111111, 999999),
         "name": "wqdf",
         "price": 121,
         "statistics": {
@@ -28,5 +27,7 @@ def new_item(api_client, request):
 
     status_str = response.json()["status"]
     item_id = status_str.split()[-1]
+    sellerID = payload["sellerID"]
+
 
     return [payload, item_id, sellerID]

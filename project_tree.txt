@@ -1,0 +1,13 @@
+.
+├── README.md
+├── Task1
+│   ├── BUGS_FROM_SCREENSHOT.md
+│   └── img
+├── Task2
+│   ├── BUGS.md
+│   ├── TESTCASES.md
+│   ├── TESTS
+│   ├── conftest.py
+│   └── utils
+├── project_tree.txt
+├── requirements.txt

@@ -1,4 +1,3 @@
-import requests
 import pytest
 
 def test_item_data(api_client, new_item): #проверка на совпадение данных с отправленными
@@ -35,12 +34,26 @@ def test_item_in_statistics(api_client, new_item): #объявление в ма
 
 
 @pytest.mark.parametrize(
-    "new_item",
+    "sellerID",
     [111111, 999999],
-    indirect=True 
 )
-def test__boarders(api_client, new_item):
-    payload, item_id, sellerID = new_item
+def test__boarders(api_client, sellerID):
+
+    payload = {
+        "sellerID": sellerID,
+        "name": "wqdf",
+        "price": 121,
+        "statistics": {
+            "likes": 1542,
+            "viewCount": 8765,
+            "contacts": 231
+        }
+    }
+    response_post = api_client.create_item(payload)
+    assert response_post.status_code == 200
+
+    status_str = response_post.json()["status"]
+    item_id = status_str.split()[-1]
 
     response = api_client.get_item(item_id)
     assert response.status_code == 200
@@ -97,8 +110,8 @@ def test_without_name(api_client, name):
     assert response.status_code == 400
     print(response.json())
 
-@pytest.mark.parametrize("sellerID", [None, "abc"])
-def test_without_sellerID(api_client, sellerID):
+@pytest.mark.parametrize("sellerID", [None, "abc", 0 , -1])
+def test_sellerID_negative(api_client, sellerID):
     
     payload = {
         "sellerID": sellerID,
@@ -115,7 +128,7 @@ def test_without_sellerID(api_client, sellerID):
     print(response.json())
 
 @pytest.mark.parametrize("price", [None, -12345, "abc"])
-def test_without_sellerID(api_client, price):
+def test_price_negative(api_client, price):
     
     payload = {
         "sellerID": 185537,
