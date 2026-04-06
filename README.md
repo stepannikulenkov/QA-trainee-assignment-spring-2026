@@ -13,7 +13,6 @@
 │   ├── TESTS
 │   ├── conftest.py
 │   └── utils
-├── project_tree.txt
 ├── requirements.txt
 ```
 
